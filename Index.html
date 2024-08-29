@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea Lin | Designer</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overlock:400,400i,700|Oleo+Script" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; font-size: 62.5%; font-family: 'Overlock', Arial, sans-serif; }
+        body { overflow-x: hidden; overflow-y: scroll; perspective: 1px; transform-style: preserve-3d; }
+
+        /* Color Palette */
+        :root {
+            --color1: #E6A4B4;
+            --color2: #F3D7CA;
+            --color3: #FFF8E3;
+            --color4: #F5EEE6;
+        }
+
+        /* Header with Parallax Effect */
+        header {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            transform-style: inherit;
+            z-index: -1;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: block;
+            background: url('https://live.staticflickr.com/65535/53955613115_4e6f77079f_h.jpg') top center;
+            background-size: cover;
+            transform: translateZ(-1px) scale(2.1);
+            min-height: 100%;
+            z-index: -2;
+        }
+
+        header h1 {
+            font-size: 5rem;
+            margin: 0;
+            color: #fff;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+        }
+
+        .animate-header h1 {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Sections */
+        section {
+            position: relative;
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            padding: 60px 20px;
+            transform-style: inherit;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        section h1 {
+            font-size: 4rem;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            color: #333;
+        }
+
+        .section1 { background: var(--color3); box-shadow: 0 0 20px #333; z-index: 1; }
+        .section2::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            display: block;
+            background-size: cover;
+            transform: translateZ(-.5px) scale(1.6);
+            z-index: -1;
+        }
+        .section2 { background: var(--color2); }
+
+        .section3 {
+            background: var(--color4);
+            box-shadow: 0 0 20px #333;
+            z-index: 1;
+        }
+
+        .section4 {
+            background: var(--color1);
+            box-shadow: 0 0 20px #333;
+            z-index: 1;
+        }
+
+        p, .container p {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            margin: 20px 0;
+            color: #333;
+            max-width: 800px;
+        }
+
+        /* Portfolio Cards */
+        .card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card img {
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        .card {
+            height: 300px;
+        }
+
+        /* Author */
+        .author {
+            position: absolute;
+            z-index: 999;
+            top: 0;
+            right: 0;
+            padding: .5rem 1rem;
+            background: var(--color4);
+            border-bottom-left-radius: 5px;
+            transition: 300ms;
+        }
+        .author a, .author a:visited { color: #333; text-decoration: none; display: block; transition: 300ms; }
+        .author:hover, .author:active { box-shadow: 0 0 10px #33333350; }
+
+        /* About Me Section Image */
+        .about-image {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 450px;
+            height: auto;
+            margin: 20px;
+
+        }
+
+        /* Contact Form Styles */
+        .contact-form {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1.6rem;
+        }
+
+        .contact-form button {
+            padding: 10px 20px;
+            background-color: var(--color1);
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #d18f9a;
+        }
+
+        /* Footer Styles */
+        footer {
+            position: relative;
+            padding: 50px 0;
+            background: #333;
+            color: white;
+            text-align: center;
+        }
+
+        footer h2 {
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
+
+        footer .links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        footer .links a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.4rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .links a:hover {
+            color: var(--color1);
+        }
+
+        footer .social {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        footer .social a {
+            color: white;
+            font-size: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .social a:hover {
+            color: var(--color1);
+        }
+
+        footer .logo {
+            margin-top: 30px;
+            font-size: 2rem;
+            font-family: 'Oleo Script', cursive;
+        }
+
+        footer .wave {
+            position: absolute;
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background-size: cover;
+            transform: rotate(180deg);
+            animation: wave 5s infinite linear;
+        }
+
+        @keyframes wave {
+            from { background-position-x: 0; }
+            to { background-position-x: 1000px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header id="header">
+    <h1>Andrea Lin | Designer | Investor</h1>
+</header>
+
+<!-- Section 1: About -->
+<section id="about" class="section1">
+    <h1>About Me</h1>
+    <div class="container">
+        <p>I am a designer specializing in fashion and interior design, creating unique and stylish concepts for home decor, parties, and weddings. With a keen eye for design and fashion, I excel at making tough decisions that lead to successful outcomes. I am a graduate of Columbia University and have a strong background as a former director. In addition to my design career, I have been successfully working in investing for over 5 years, applying the same strategic thinking and attention to detail that I bring to my design projects. My experience in the financial world has sharpened my ability to analyze trends, make informed decisions, and manage risk effectively, making me a well-rounded professional with a unique blend of creativity and financial acumen.</p>
+    </div>
+    <!-- Add the image here -->
+    <img src="https://i.imgur.com/tBX7kKD.png" alt="About Me Image" class="about-image">
+</section>
+
+<!-- Section 2: Portfolio with Parallax -->
+<section id="portfolio" class="section2">
+    <h1>Portfolio</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.brides.com/thmb/4sjHZ5WMMCe21YEFF7vVYClcgKs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/0336-MeghanDesmond-HI7A1789s-400acb149ee44038a177cf3bf420cdaf.jpg" alt="Portfolio Image 1">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.sanpatrick.com/media/catalog/product/l/u/luxury_b.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=1023&width=767&canvas=767:1023" alt="Portfolio Image 2">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://esposagroup.com/wp-content/uploads/2020/07/Florina-Milla-Nova.jpg" alt="Portfolio Image 3">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://www.brides.com/thmb/4sjHZ5WMMCe21YEFF7vVYClcgKs=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/0336-MeghanDesmond-HI7A1789s-400acb149ee44038a177cf3bf420cdaf.jpg" alt="Portfolio Image 4">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://dy9ihb9itgy3g.cloudfront.net/products/11211/y3160/y3160_ivory-blush_f_d.webp" alt="Portfolio Image 5">
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="https://d44ri6pmeripj.cloudfront.net/morilee/wp-content/uploads/2024/02/26104846/product_img_2655_gallery_img_4.jpg" alt="Portfolio Image 6">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Section 3: Design -->
+<section id="design" class="section3">
+    <h1>Design Inspiration</h1>
+    <div class="container">
+        <p>My design philosophy is rooted in simplicity, functionality, and creativity...</p>
+    </div>
+</section>
+
+<!-- Section 4: Contact Me -->
+<section id="contact" class="section4">
+    <h1>Contact Me</h1>
+    <div class="container">
+        <div class="contact-form">
+            <form id="contact-form">
+                <input type="email" id="user-email" placeholder="Your Email" required>
+                <textarea id="user-message" rows="5" placeholder="Your Message" required></textarea>
+                <button type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- Fancy Footer -->
+<footer>
+    <div class="wave"></div>
+    <!-- <h2>Stay Connected</h2>
+    <div class="social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div> -->
+    <div class="logo">Drea L</div>
+</footer>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.amazonaws.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- EmailJS SDK -->
+<script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+    })();
+</script>
+
+<!-- JavaScript for Sending Emails -->
+<script>
+    document.getElementById('contact-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Send email using EmailJS
+        emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            from_name: document.getElementById('user-email').value,
+            message_html: document.getElementById('user-message').value
+        }).then(function(response) {
+           alert('Your message has been sent!');
+        }, function(error) {
+           alert('Failed to send message. Please try again.');
+        });
+    });
+</script>
+
+<!-- JavaScript for Section Animation -->
+<script>
+    const sections = document.querySelectorAll('section');
+
+    const options = {
+        threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            }
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+        });
+    }, options);
+
+    sections.forEach(section => {
+        observer.observe(section);
+    });
+
+    // Trigger header animation after DOM content is fully loaded
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector("header").classList.add("animate-header");
+    });
+</script>
+
+<!-- Font Awesome Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
+</body>
+</html>
